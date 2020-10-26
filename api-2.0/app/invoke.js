@@ -64,8 +64,7 @@ const invokeTransaction = async (channelName, chaincodeName, fcn, args, username
 
         let result
         let message;
-        if (fcn === "createCar" || fcn === "createPrivateCarImplicitForOrg1"
-            || fcn == "createPrivateCarImplicitForOrg2") {
+        if (fcn === "createCar" || fcn === "createPrivateCarImplicitForOrg1" || fcn == "createPrivateCarImplicitForOrg2") {
             result = await contract.submitTransaction(fcn, args[0], args[1], args[2], args[3], args[4]);
             message = `Successfully added the car asset with key ${args[0]}`
 
@@ -83,6 +82,16 @@ const invokeTransaction = async (channelName, chaincodeName, fcn, args, username
                 .setTransient(transientDataBuffer)
                 .submit()
             message = `Successfully submitted transient data`
+        } else if (fcn == "createPoint") {
+            console.log(`Getting start: ${fcn}`)
+            result = await contract.submitTransaction(fcn, args[0], args[1]);
+            console.log(`End point: ${fcn}`)
+            message = `Successfully change point owner`
+        } else if (fcn == "changePointOwner") {
+            console.log(`Getting start: ${fcn}`)
+            result = await contract.submitTransaction(fcn, args[0], args[1], args[2]);
+            console.log(`End point: ${fcn}`)
+            message = `Successfully change point owner`
         }
         else {
             return `Invocation require either createCar or changeCarOwner as function but got ${fcn}`

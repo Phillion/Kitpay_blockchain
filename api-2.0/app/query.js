@@ -52,6 +52,12 @@ const query = async (channelName, chaincodeName, args, fcn, username, org_name) 
             result = await contract.evaluateTransaction(fcn, args[0], args[1]);
             // return result
 
+        } else if (fcn == "queryPoint" || fcn == "getHistory") {
+            console.log(`Getting start: ${fcn}`)
+            result = await contract.evaluateTransaction(fcn, args[0]);
+            console.log(`End point: ${fcn}`)
+            // return result
+
         }
         console.log(result)
         console.log(`Transaction has been evaluated, result is: ${result.toString()}`);
